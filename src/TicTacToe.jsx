@@ -3,6 +3,13 @@ import Board from './Components/Board'
 import GameState from './Components/GameState'
 import Winner from './Components/Winner'
 import Button from './Components/Button'
+import GameOverSoundAsset from '../src/Sounds/GameOver.wav'
+import ClickSoundAsset from '../src/Sounds/Click.wav'
+
+const gameOverSound=new Audio(GameOverSoundAsset)
+gameOverSound.volume=0.7;
+const clickSound=new Audio(ClickSoundAsset)
+clickSound.volume=0.4;
 
 let count = 0
 let bgcolor=[]
@@ -124,7 +131,16 @@ function TicTacToe() {
 
   useEffect(()=>{
     checkWinner(tileValues,winningCombinations)
+    if(tileValues.some(tile=>tile!==null)){
+      clickSound.play();
+    }
   },[tileValues])
+  
+  useEffect(()=>{
+    if(gameState!=GameState.inProgress){
+      gameOverSound.play()
+    }
+  },[gameState])
 
   return (
     <div className='tic-tac-toe'>
