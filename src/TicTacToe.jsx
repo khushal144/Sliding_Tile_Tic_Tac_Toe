@@ -14,6 +14,7 @@ clickSound.volume=0.4;
 let count = 0
 let bgcolor=[]
 let selectedTileIndexes = []
+let DrawCombinations={}
 const winningCombinations=[
   //row
   [0,1,2],
@@ -127,6 +128,7 @@ function TicTacToe() {
     setGameState(GameState.inProgress)
     count=0
     setBgColor(Array(9).fill(''))
+    DrawCombinations={}
   }
 
   useEffect(()=>{
@@ -141,6 +143,19 @@ function TicTacToe() {
       gameOverSound.play()
     }
   },[gameState])
+
+  useEffect(()=>{
+    if(DrawCombinations[tileValues]==undefined)
+      DrawCombinations[tileValues]=1
+    else
+      DrawCombinations[tileValues]++
+
+    let keys=Object.keys(DrawCombinations)
+
+    if(keys.some(key=>DrawCombinations[key]==3))
+      setGameState(GameState.Draw)
+    console.log(DrawCombinations)
+  },[tileValues])
 
   return (
     <div className='tic-tac-toe'>

@@ -7,10 +7,13 @@ function Winner({gameState}) {
         return <div></div>
     }
     case GameState.XWins:{
-        return <div className='winner'>X Wins</div>
+        return <div className='winner'>X Wins!</div>
     }
     case GameState.Owins:{
-        return <div className='winner'>O Wins</div>
+        return <div className='winner'>O Wins!</div>
+    }
+    case GameState.Draw:{
+      return <div className='winner'>Draw!</div>
     }
     default:return <></>
   }
